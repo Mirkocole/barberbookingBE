@@ -2,7 +2,7 @@ import { Router } from "express";
 import  bcrypt  from "bcryptjs";
 import Client from '../models/client.model.js'
 import Barber from '../models/barber.model.js'
-import { generateJWT } from "../middlewares/auth.js";
+import { generateJWT, verifyJWT, authMiddleware } from "../middlewares/auth.js";
 
 
 export const authRoute = Router();
@@ -87,3 +87,24 @@ authRoute.post('/login', async (req,res,next) =>{
     }
 })
 
+authRoute.get('/profile',authMiddleware, async(req,res,next) =>{
+    try {
+        let user = await Client.findById(req.user._id);
+
+        if (user) {
+            console.log('user')
+            res.send(user);
+        } else {
+            let barber = await Barber.findById(req.user._id);
+            if (barber) {
+                console.log('barber')
+                res.send(barber);
+            } else {
+                res.status(404);
+            }
+        }
+
+    } catch (error) {
+        next(error);
+    }
+})

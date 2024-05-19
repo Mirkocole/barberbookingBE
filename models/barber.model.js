@@ -6,6 +6,10 @@ const barberSchema = new Schema({
         type:String,
         required:true
     },
+    barber : {
+        type : Boolean,
+        default : true
+    },
     lastname:{
         type:String,
         required:true
@@ -43,7 +47,7 @@ const barberSchema = new Schema({
             type: String,
             required : false
         },
-        countrycode : {
+        countryCode : {
             type: String,
             required : false
         },

@@ -57,7 +57,7 @@ export const authMiddleware = async (req, res, next) => {
 
                 // Andiamo a trovare l'utente con i dati del Payload
 
-                const me = await Client.findOne(
+                let me = await Client.findOne(
                     { ...decoded }
                 )
 

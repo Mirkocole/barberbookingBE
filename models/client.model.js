@@ -39,7 +39,7 @@ const clientSchema = new Schema({
             type: String,
             required : false
         },
-        countrycode : {
+        countryCode : {
             type: String,
             required : false
         },
