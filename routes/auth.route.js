@@ -92,12 +92,12 @@ authRoute.get('/profile',authMiddleware, async(req,res,next) =>{
         let user = await Client.findById(req.user._id);
 
         if (user) {
-            console.log('user')
+            
             res.send(user);
         } else {
             let barber = await Barber.findById(req.user._id);
             if (barber) {
-                console.log('barber')
+                
                 res.send(barber);
             } else {
                 res.status(404);
