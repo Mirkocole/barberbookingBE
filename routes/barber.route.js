@@ -51,37 +51,23 @@ barberRoute.patch('/:id', CloudinaryMiddleware, async (req, res, next) => {
 
         let newUser;
         let image = await req.file?.path;
-        console.log(image);
         if (image) {
-            console.log('req.file.path');
             let image = req.file.path;
-            let isBarber = JSON.parse(req.body.user);
-            if (isBarber ) {
                  newUser = await Barber.findByIdAndUpdate(req.params.id, { ...req.body.user, avatar: image }, {
                     new: true
                 });
                 
                 res.send(newUser);
-            } else {
-                 newUser = await Client.findByIdAndUpdate(req.params.id, 
-                    { ...req.body.user, avatar: image }, 
-                    { new: true });
-                res.send(newUser);
-            }
+            
         } else {
-           let isBarber = req.body;
+           
         //    console.log(req.body);
-            if (isBarber) {
+            
                  newUser = await Barber.findByIdAndUpdate(req.params.id,req.body, {
                     new: true
                 });
                 res.send(newUser);
-            } else {
-                 newUser = await Client.findByIdAndUpdate(req.params.id,req.body , {
-                    new: true
-                });
-                res.send(newUser);
-            }
+            
         }
 
 
