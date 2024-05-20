@@ -2,6 +2,7 @@ import { Router } from "express";
 import Barber from '../models/barber.model.js'
 import Client from '../models/client.model.js'
 import CloudinaryMiddleware from '../middlewares/multer.js';
+import { ObjectId } from "mongodb";
 
 export const barberRoute = Router();
 
@@ -37,6 +38,36 @@ barberRoute.put('/:id', async (req, res, next) => {
     try {
         let id = req.params.id;
         let barber = await Barber.findByIdAndUpdate(id, req.body, {
+            new: true
+        });
+        res.send(barber);
+    } catch (error) {
+        next(error);
+    }
+})
+
+
+barberRoute.post('/:id/services', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let oldBarber = await Barber.findById(id);
+        let newService = [...oldBarber.services,req.body]
+        oldBarber.services = newService;
+        let barber = await Barber.findByIdAndUpdate(id, oldBarber, {
+            new: true
+        });
+        res.send(barber);
+    } catch (error) {
+        next(error);
+    }
+})
+
+barberRoute.put('/:id/services/:idService', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let service = req.params.idService;
+        let barber = await Barber.findByIdAndUpdate(id, 
+        { $pull: { services: { '_id': {$eq: service} } } }, {
             new: true
         });
         res.send(barber);
