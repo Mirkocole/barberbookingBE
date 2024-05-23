@@ -5,6 +5,7 @@ import cors from 'cors';
 import { clientRouter } from './routes/client.route.js';
 import { barberRoute } from './routes/barber.route.js';
 import { authRoute } from './routes/auth.route.js';
+import { bookingRoute } from './routes/booking.route.js';
 
 
 // Attivo la possibilità di accedere ai dati nel file .env
@@ -23,6 +24,7 @@ server.use(cors());
 server.use('/auth', authRoute);
 server.use('/client',clientRouter);
 server.use('/barber',barberRoute);
+server.use('/booking',bookingRoute);
 
 // Inizializzo il server
 const initserver = async ()=>{

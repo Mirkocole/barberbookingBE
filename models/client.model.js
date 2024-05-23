@@ -47,7 +47,11 @@ const clientSchema = new Schema({
     },
     avatar:{
         type:String
-    }
+    },
+    bookings:[{
+        type: Schema.Types.ObjectId,
+        ref:"Booking"
+    }]
 
 },{
     timestamps:true,

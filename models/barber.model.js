@@ -68,6 +68,11 @@ const barberSchema = new Schema({
             required : false},
         price : {type:Number,
             required : false}
+    }],
+
+    bookings:[{
+        type: Schema.Types.ObjectId,
+        ref:"Booking"
     }]
 
 },{
