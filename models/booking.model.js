@@ -2,7 +2,11 @@ import { ref } from "firebase/database";
 import { Schema, model } from "mongoose";
 
 const bookingSchema = new Schema({
-    data:{
+    start:{
+        type : Date,
+        required : true
+    },
+    end:{
         type : Date,
         required : true
     },

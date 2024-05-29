@@ -67,7 +67,11 @@ const barberSchema = new Schema({
         description : {type:String,
             required : false},
         price : {type:Number,
-            required : false}
+            required : false},
+        duration : {
+            type:Number,
+            required : false
+        }
     }],
 
     bookings:[{

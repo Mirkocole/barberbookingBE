@@ -89,13 +89,13 @@ authRoute.post('/login', async (req,res,next) =>{
 
 authRoute.get('/profile',authMiddleware, async(req,res,next) =>{
     try {
-        let user = await Client.findById(req.user._id);
+        let user = await Client.findById(req.user._id).populate({path:'bookings',populate : [{path : 'barber'}]});
 
         if (user) {
             
             res.send(user);
         } else {
-            let barber = await Barber.findById(req.user._id);
+            let barber = await Barber.findById(req.user._id).populate({path:'bookings',populate : [{path : 'client'}]});
             if (barber) {
                 
                 res.send(barber);

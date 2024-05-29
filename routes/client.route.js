@@ -20,7 +20,7 @@ clientRouter.get('/', async (req, res, next) => {
 clientRouter.get('/:id', async (req, res, next) => {
     try {
         let id = req.params.id;
-        let user = await Client.findById(id);
+        let user = await Client.findById(id).populate({ path: 'bookings', populate: [{ path: 'barber' }] });
         res.send(user);
     } catch (error) {
         next(error);
@@ -64,6 +64,7 @@ clientRouter.put('/:id', async (req, res, next) => {
         let user = await Client.findByIdAndUpdate(id, req.body, {
             new: true
         });
+        
         res.send(user);
     } catch (error) {
         next(error);
@@ -77,19 +78,15 @@ clientRouter.patch('/:id', CloudinaryMiddleware, async (req, res, next) => {
         let newUser;
         if (req.file) {
             let image = req.file.path;
-            
-                newUser = await Client.findByIdAndUpdate(req.params.id,
-                    { ...req.body.user, avatar: image },
-                    { new: true });
-                res.send(newUser);
-            
-        } else {
-            
-                newUser = await Client.findByIdAndUpdate(req.params.id, req.body, {
-                    new: true
-                });
-                res.send(newUser);
-            
+            console.log(req.file.path)
+
+            newUser = await Client.findByIdAndUpdate(req.params.id,
+                { ...req.body.user, avatar: image },
+                { new: true });
+                console.log('immagine caricata');
+                console.log(newUser);
+            res.send(newUser);
+
         }
 
     } catch (error) {

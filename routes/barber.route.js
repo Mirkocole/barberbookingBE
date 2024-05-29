@@ -8,7 +8,7 @@ export const barberRoute = Router();
 
 barberRoute.get('/', async (req, res, next) => {
     try {
-        let barbers = await Barber.find();
+        let barbers = await Barber.find().populate({path:'bookings',populate : [{path : 'client'}]});
         res.send(barbers);
     } catch (error) {
         next(error);
@@ -18,7 +18,7 @@ barberRoute.get('/', async (req, res, next) => {
 barberRoute.get('/:id', async (req, res, next) => {
     try {
         let id = req.params.id;
-        let barbers = await Barber.findById(id);
+        let barbers = await Barber.findById(id).populate({path:'bookings',populate : [{path : 'client'}]});
         res.send(barbers);
     } catch (error) {
         next(error);
@@ -62,6 +62,20 @@ barberRoute.post('/:id/services', async (req, res, next) => {
     }
 })
 
+barberRoute.delete('/:id/services/:idService', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let service = req.params.idService;
+        let barber = await Barber.findByIdAndUpdate(id, 
+        { $pull: { services: { '_id': {$eq: service} } } }, {
+            new: true
+        });
+        res.send(barber);
+    } catch (error) {
+        next(error);
+    }
+})
+
 barberRoute.put('/:id/services/:idService', async (req, res, next) => {
     try {
         let id = req.params.id;
@@ -70,6 +84,11 @@ barberRoute.put('/:id/services/:idService', async (req, res, next) => {
         { $pull: { services: { '_id': {$eq: service} } } }, {
             new: true
         });
+
+        barber = await Barber.findByIdAndUpdate(id, 
+            { $push: { services: [req.body] } }, {
+                new: true
+            });
         res.send(barber);
     } catch (error) {
         next(error);
