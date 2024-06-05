@@ -48,6 +48,10 @@ const clientSchema = new Schema({
     avatar:{
         type:String
     },
+    feedback: [{
+        type: Schema.Types.ObjectId,
+        ref: "Feedback"
+    }],
     bookings:[{
         type: Schema.Types.ObjectId,
         ref:"Booking"

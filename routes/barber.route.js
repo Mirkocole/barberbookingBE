@@ -8,7 +8,7 @@ export const barberRoute = Router();
 
 barberRoute.get('/', async (req, res, next) => {
     try {
-        let barbers = await Barber.find().populate({path:'bookings',populate : [{path : 'client'}]});
+        let barbers = await Barber.find().populate([{path:'bookings',populate : [{path : 'client'}]},{path:'feedback',populate : [{path : 'client'}]}]);
         res.send(barbers);
     } catch (error) {
         next(error);
@@ -18,7 +18,7 @@ barberRoute.get('/', async (req, res, next) => {
 barberRoute.get('/:id', async (req, res, next) => {
     try {
         let id = req.params.id;
-        let barbers = await Barber.findById(id).populate({path:'bookings',populate : [{path : 'client'}]});
+        let barbers = await Barber.findById(id).populate([{path:'bookings',populate : [{path : 'client'}]},{path:'feedback',populate : [{path : 'client'}]}]);
         res.send(barbers);
     } catch (error) {
         next(error);

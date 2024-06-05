@@ -18,7 +18,11 @@ const bookingSchema = new Schema({
     client : {
         type : Schema.Types.ObjectId,
         ref : "Client",
-        required : true
+        required : false
+    },
+    title:{
+        type:String,
+        required : false
     },
     services:[
         {

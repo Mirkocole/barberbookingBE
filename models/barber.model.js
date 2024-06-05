@@ -1,87 +1,97 @@
-import { Schema,model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const barberSchema = new Schema({
 
-    name:{
-        type:String,
-        required:true
-    },
-    barber : {
-        type : Boolean,
-        default : true
-    },
-    lastname:{
-        type:String,
-        required:true
-    },
-    email:{
-        type:String,
-        required:true
-    },
-    password:{
-        type:String,
-        required:false
-    },
-    phone : {
+    name: {
         type: String,
-        required : false
+        required: true
     },
-    salon:{
-        type:String,
-        required:false
+    barber: {
+        type: Boolean,
+        default: true
     },
-    address : {
-        street : {
-            type: String,
-            required : false
-        },
-        postalCode : {
-            type: String,
-            required : false
-        },
-        city : {
-            type: String,
-            required : false
-        },
-        country : {
-            type: String,
-            required : false
-        },
-        countryCode : {
-            type: String,
-            required : false
-        },
-        
+    lastname: {
+        type: String,
+        required: true
     },
-    avatar:{
-        type:String,
-        required : false
+    email: {
+        type: String,
+        required: true
     },
-    cover:{
-        type:String,
-        required : false
+    password: {
+        type: String,
+        required: false
     },
-    services : [{
-        name :{ type:String,
-            required : false},
-        description : {type:String,
-            required : false},
-        price : {type:Number,
-            required : false},
-        duration : {
-            type:Number,
-            required : false
+    phone: {
+        type: String,
+        required: false
+    },
+    salon: {
+        type: String,
+        required: false
+    },
+    address: {
+        street: {
+            type: String,
+            required: false
+        },
+        postalCode: {
+            type: String,
+            required: false
+        },
+        city: {
+            type: String,
+            required: false
+        },
+        country: {
+            type: String,
+            required: false
+        },
+        countryCode: {
+            type: String,
+            required: false
+        },
+
+    },
+    avatar: {
+        type: String,
+        required: false
+    },
+    cover: {
+        type: String,
+        required: false
+    },
+    services: [{
+        name: {
+            type: String,
+            required: false
+        },
+        description: {
+            type: String,
+            required: false
+        },
+        price: {
+            type: Number,
+            required: false
+        },
+        duration: {
+            type: Number,
+            required: false
         }
     }],
-
-    bookings:[{
+    feedback: [{
         type: Schema.Types.ObjectId,
-        ref:"Booking"
+        ref: "Feedback"
+    }],
+
+    bookings: [{
+        type: Schema.Types.ObjectId,
+        ref: "Booking"
     }]
 
-},{
-    timestamps:true,
-    collection : 'barber'
+}, {
+    timestamps: true,
+    collection: 'barber'
 });
 
-export default model('Barber',barberSchema);
+export default model('Barber', barberSchema);

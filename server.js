@@ -6,6 +6,7 @@ import { clientRouter } from './routes/client.route.js';
 import { barberRoute } from './routes/barber.route.js';
 import { authRoute } from './routes/auth.route.js';
 import { bookingRoute } from './routes/booking.route.js';
+import { feedRoute } from './routes/feedback.route.js';
 
 
 // Attivo la possibilità di accedere ai dati nel file .env
@@ -25,6 +26,7 @@ server.use('/auth', authRoute);
 server.use('/client',clientRouter);
 server.use('/barber',barberRoute);
 server.use('/booking',bookingRoute);
+server.use('/feedback',feedRoute);
 
 // Inizializzo il server
 const initserver = async ()=>{
