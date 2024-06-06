@@ -3,6 +3,7 @@ import  bcrypt  from "bcryptjs";
 import Client from '../models/client.model.js'
 import Barber from '../models/barber.model.js'
 import { generateJWT, verifyJWT, authMiddleware } from "../middlewares/auth.js";
+import passport from "passport";
 
 
 export const authRoute = Router();
@@ -108,3 +109,41 @@ authRoute.get('/profile',authMiddleware, async(req,res,next) =>{
         next(error);
     }
 })
+
+authRoute.get('/me', authMiddleware, async (req,res,next) =>{
+    try {
+        
+        
+        let admin = await Client.findById(req.user._id);
+        if (admin) {
+            
+            res.send(admin);
+        } else {
+            admin = await Client.findById(req.user._id);
+            if (admin) {
+            
+                res.send(admin);
+            }else {
+            res.status(400).send('Utente non trovato')
+            }
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+
+
+// GoogleLogin
+
+authRoute.get('/googleLogin', passport.authenticate('google',{scope:['profile','email']}));
+
+authRoute.get('/callback', passport.authenticate('google',{session:false}), (req,res,next)=>{
+
+    try {
+        res.redirect('http://localhost:3000/login?accessToken='+req.user.accToken);
+    } catch (error) {
+        next(error);
+    }
+
+
+});
