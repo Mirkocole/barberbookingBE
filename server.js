@@ -21,7 +21,7 @@ const server = express();
 // Abilito la lettura di file json nelle request
 server.use(express.json());
 
-const whitelist = ['https://striveblog-gamma.vercel.app/','http://localhost:3000/'];
+const whitelist = ['https://barberbooking-zeta.vercel.app/','http://localhost:3000/'];
 const optionsCors = {
     origin : function (origin,callback) {
         if (!origin || whitelist.some((domain)=> origin.startsWith(domain))) {
