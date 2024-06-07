@@ -1,4 +1,3 @@
-import { ref } from "firebase/database";
 import { Schema, model } from "mongoose";
 
 const bookingSchema = new Schema({
