@@ -25,6 +25,17 @@ barberRoute.get('/:id', async (req, res, next) => {
     }
 });
 
+
+barberRoute.delete('/:id', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let barbers = await Barber.findByIdAndDelete(id);
+        res.send(barbers);
+    } catch (error) {
+        next(error);
+    }
+});
+
 barberRoute.post('/', async (req, res, next) => {
     try {
         let barber = await Barber.create(req.body);
