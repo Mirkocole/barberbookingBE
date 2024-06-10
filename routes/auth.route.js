@@ -140,7 +140,7 @@ authRoute.get('/googleLogin', passport.authenticate('google',{scope:['profile','
 authRoute.get('/callback', passport.authenticate('google',{session:false}), (req,res,next)=>{
 
     try {
-        res.redirect('http://localhost:3000/login?accessToken='+req.user.accToken);
+        res.redirect('https://barberbooking-zeta.vercel.app/login?accessToken='+req.user.accToken);
     } catch (error) {
         next(error);
     }
